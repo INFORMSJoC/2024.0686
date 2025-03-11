@@ -27,7 +27,7 @@ md"""
 
 # ╔═╡ ce0b4aff-581c-4932-b17f-a5463c410326
 DATA = [
-	"data/e5349526-7e6b-11ee-10dd-957c650eaa7e.csv"
+	"results/data/e5349526-7e6b-11ee-10dd-957c650eaa7e.csv"
 ]
 
 # ╔═╡ 3b3d56c3-6ac6-4ab6-b88b-50bb8d251fbb

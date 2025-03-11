@@ -35,7 +35,7 @@ PARAMS = [
     (12, 35, 10, 23, 28, 30)
 ]
 
-PROBLEM_DIR = "problems/mincover/params"
+PROBLEM_DIR = "data/problems/mincover/params"
 PREFIXES = [@sprintf("mcp5-n%03d-r%02d-e%02d-s%02d-j%02d-p%02d-m%02d", n, r, e, s, j, p, m) for n in [70, 90, 110], (r, e, s, j, p, m) in PARAMS]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)

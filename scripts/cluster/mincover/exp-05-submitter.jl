@@ -2,7 +2,7 @@ include("../common/submitter.jl")
 
 using Printf
 
-PROBLEM_DIR = "problems/mincover/expset-4"
+PROBLEM_DIR = "data/problems/mincover/expset-4"
 PREFIXES = [@sprintf("mcp4-n%03d-r%02d", n, r) for n in 70:10:120, r in [8, 10, 12, 14, 16]]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)

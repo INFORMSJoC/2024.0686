@@ -1,6 +1,6 @@
 include("../common/submitter.jl")
 
-PROBLEM_DIR = "problems/maxstab/expset-3"
+PROBLEM_DIR = "data/problems/maxstab/expset-3"
 PREFIXES = ["mssp3-n$n-d$d" for n in 100:20:160, d in [10, 15, 20, 30]]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)

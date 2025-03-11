@@ -53,6 +53,8 @@ Below is the BibTex for citing this snapshot of the repository.
 The package is not available on the registry. Please clone the repository and
 add it as a [local package](https://pkgdocs.julialang.org/v1/managing-packages/#Adding-a-local-package). You also need to add [JuMP](https://jump.dev/JuMP.jl/stable/) and [Gurobi](https://github.com/jump-dev/Gurobi.jl).
 
+For instance, you can use the on-going repository by doing:
+
 ```julia
 ]add https://github.com/minhcly95/CombinatorialPricing.jl.git
 ```
@@ -63,7 +65,7 @@ add it as a [local package](https://pkgdocs.julialang.org/v1/managing-packages/#
 using CombinatorialPricing, JuMP, Gurobi
 
 # Import a problem from a file
-file = "./problems/knapsack/expset-4/kpp4-n40-r50-01.json"
+file = "./data/problems/knapsack/expset-4/kpp4-n40-r50-01.json"
 prob = read(file, KnapsackPricing)
 
 # Create a value function model
@@ -81,7 +83,7 @@ xvals = value.(model_vf[:x])        # The follower's decision x
 ```
 
 ## Other Models
-The paper \[[1](#readme-ref1)\] introduces 3 models to solve CPPs:
+Paper \[[1](#readme-ref1)\] introduces 3 models to solve CPPs:
 - Value function model (VF);
 - Selection diagram model (SD);
 - Decision diagram model (DD).
@@ -109,10 +111,10 @@ sampler = MaximalKnapsackSampler(prob)
 samples = rand(sampler, numpairs)
 
 # Extract random pairs from the samples
-pairs = random_pair.(samples)
+pairs_aux = random_pair.(samples)
 
 # Create a selection diagram
-sd = sdgraph_from_pairs(prob, pairs)
+sd = sdgraph_from_pairs(prob, pairs_aux)
 
 # Create a model from the SD
 model_sd = sdgraph_model(sd)
@@ -144,7 +146,7 @@ model_dd = dpgraph_model(dd)
 ```
 
 ## Supported Problems
-The paper \[[1](#readme-ref1)\] implements 4 different CPP specializations:
+Paper \[[1](#readme-ref1)\] implements 4 different CPP specializations:
 - Knapsack pricing problem (KPP);
 - Maximum stable set pricing problem (MaxSSPP);
 - Minimum set cover pricing problem (MinSCPP);
@@ -154,28 +156,28 @@ The paper \[[1](#readme-ref1)\] implements 4 different CPP specializations:
 
 ```julia
 # Knapsack pricing problem
-prob = read("./problems/knapsack/expset-4/kpp4-n40-r50-01.json", KnapsackPricing)
+prob = read("./data/problems/knapsack/expset-4/kpp4-n40-r50-01.json", KnapsackPricing)
 sampler = MaximalKnapsackSampler(prob)
 
 # Maximum stable set pricing problem
-prob = read("./problems/maxstab/expset-7/mssp7-n120-d12-01.json", MaxStableSetPricing)
+prob = read("./data/problems/maxstab/expset-7/mssp7-n120-d12-01.json", MaxStableSetPricing)
 sampler = MaximalStableSetSampler(prob)
 
 # Minimum set cover pricing problem
-prob = read("./problems/mincover/expset-4/mcp4-n120-r16-01.json", MinSetCoverPricing)
+prob = read("./data/problems/mincover/expset-4/mcp4-n120-r16-01.json", MinSetCoverPricing)
 sampler = MinimalSetCoverSampler(prob)
 
 # Knapsack interdiction problem
-prob = read("./problems/interdiction-flatten/CCLW_CCLW_n35_m0.ki", KnapsackInterdiction)
+prob = read("./data/problems/interdiction-flatten/CCLW_CCLW_n35_m0.ki", KnapsackInterdiction)
 sampler = MaximalKnapsackInterdictionSampler(prob)
 ```
 
 ### Problem Instance Sets
 The problem instances tested in \[[1](#readme-ref1)\] are located at:
-- KPP: [problems/knapsack/expset-4](problems/knapsack/expset-4)
-- MaxSSPP: [problems/maxstab/expset-7](problems/maxstab/expset-7)
-- MinSCPP: [problems/mincover/expset-4](problems/mincover/expset-4)
-- KIP: [problems/interdiction-flatten](problems/interdiction-flatten)
+- KPP: [data/problems/knapsack/expset-4](data/problems/knapsack/expset-4)
+- MaxSSPP: [data/problems/maxstab/expset-7](data/problems/maxstab/expset-7)
+- MinSCPP: [data/problems/mincover/expset-4](data/problems/mincover/expset-4)
+- KIP: [data/problems/interdiction-flatten](data/problems/interdiction-flatten)
 
 The instance files for the KPP, MaxSSPP, and MinSCPP are in JSON format and are self-explanatory.
 The KIP instances are copied from https://github.com/nwoeanhinnogaehr/bkpsolver.
@@ -184,6 +186,10 @@ The KIP instances are copied from https://github.com/nwoeanhinnogaehr/bkpsolver.
 One can also generate new instances for the KPP, MaxSSPP, and MinSCPP.
 
 > [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) is required to adjust the distributions (`DiscreteUniform`, `Uniform`).
+
+```julia
+using Distributions
+```
 
 ```julia
 # KPP
@@ -215,7 +221,7 @@ prob = generate(MaxStableSetPricing, numitems;
 ```julia
 # MinSCPP
 numsets = 80        # Number of sets to generate
-prob = generate(MaxStableSetPricing, numsets;
+prob = generate(MinSetCoverPricing, numsets;
     element_costs_dist = DiscreteUniform(50, 85),   # Distribution of costs of the elements
     set_cost_multiplier_dist = Uniform(0.9, 1.1),   # Random perturbation to the cost of each set
     sets_elements_ratio = 1.23,                     # Num sets / Num elements
@@ -227,36 +233,47 @@ prob = generate(MaxStableSetPricing, numsets;
 
 ## Results
 
-Figure 1 in the paper shows the results of the multiplication test with different
-values of K using `gcc` 7.5 on an Ubuntu Linux box.
+All results in \[[1](#readme-ref1)\] are located at
+- KPP, MaxSSPP, MinSCPP (Sections 4.1 to 4.3):  [results/data](results/data)
+- KIP (Section 4.4): [results/data/interdiction](results/data/interdiction)
+- Item Grouping (Appendix B): [results/data/grouping](results/data/grouping)
+- Instance Generation (Appendix C): [results/data/params](results/data/params)
+- All figures included in the paper: [results/figures](results/figures)
 
-![Figure 1](results/mult-test.png)
+The files to produce the tables and figures in the paper are available in the folder [results](results) as Pluto notebooks. The naming convention follows the format `CombPricingDP-[problem name]-[type of results].jl`, where:
 
-Figure 2 in the paper shows the results of the sum test with different
-values of K using `gcc` 7.5 on an Ubuntu Linux box.
+- **Problem name** can be one of the following:
+  - `KPP` (Knapsack)
+  - `MaxSSPP` (MaxStab)
+  - `MinSCPP` (MinCover)
+  - `KIP` (Interdiction)
 
-![Figure 1](results/sum-test.png)
+- **Type of results** can be one of the following:
+  - `Plots`
+  - `Grouping`
+  - `Params`
+
+ To run those files as Pluto notebooks, you can do
+
+```julia
+using Pluto
+Pluto.run()
+```
+
+Your browser will open and you just need to follow the interface intructions to open `CombPricingDP-[problem name]-[type of results].jl`.
 
 ## Replicating
 
-To replicate the results in [Figure 1](results/mult-test), do either
+The scripts to replicate our experiments can be found in the folder [scripts](scripts). For instance, to obtain the results in Appendix B for the KPP, we must run the script `kpp-submitter.jl` located in [scripts/cluster/grouping](scripts/cluster/grouping) 
 
+```julia
+include("scripts/cluster/grouping/kpp-submitter.jl")
 ```
-make mult-test
-```
-or
-```
-python test.py mult
-```
-To replicate the results in [Figure 2](results/sum-test), do either
 
-```
-make sum-test
-```
-or
-```
-python test.py sum
-```
+This script prepares the problems and submits them to the cluster, which involves invoking the `kpp-cluster.jl` file in the same folder. The remaining files follow the same logic.
+
+
+**Remark:** Our experiments were run on the Narval computing cluster provided by the Digital Research Alliance of Canada.
 
 ## References
 <a id="readme-ref1"></a> \[1\] Quang Minh Bui, Margarida Carvalho, José Neto. Solving Combinatorial Pricing Problems using Embedded Dynamic Programming Models. INFORMS Journal on Computing, accepted paper, 2025. ([arXiv version](https://arxiv.org/abs/2403.12923))

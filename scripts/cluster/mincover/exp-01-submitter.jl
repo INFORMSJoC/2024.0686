@@ -1,6 +1,6 @@
 include("../common/submitter.jl")
 
-PROBLEM_DIR = "problems/mincover/expset-1"
+PROBLEM_DIR = "data/problems/mincover/expset-1"
 PREFIXES = ["mcp-n$n-p$p" for n in 120:20:200, p in lpad.([6,8,10,12], 2, '0')]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)

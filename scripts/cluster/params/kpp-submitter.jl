@@ -21,7 +21,7 @@ PARAMS = [
     (55, 25, 30)
 ]
 
-PROBLEM_DIR = "problems/knapsack/params"
+PROBLEM_DIR = "data/problems/knapsack/params"
 PREFIXES = [@sprintf("kpp5-n%02d-r%02d-d%02d-m%02d", n, r, d, m) for n in [40, 50, 60], (r, d, m) in PARAMS]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)

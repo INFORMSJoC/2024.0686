@@ -26,7 +26,7 @@ md"""
 """
 
 # ╔═╡ ce0b4aff-581c-4932-b17f-a5463c410326
-DATA = readdir("data/interdiction", join=true)
+DATA = readdir("results/data/interdiction", join=true)
 
 # ╔═╡ 3b3d56c3-6ac6-4ab6-b88b-50bb8d251fbb
 begin

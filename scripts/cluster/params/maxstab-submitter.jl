@@ -25,7 +25,7 @@ PARAMS = [
     (16, 100, 40, 20)
 ]
 
-PROBLEM_DIR = "problems/maxstab/params"
+PROBLEM_DIR = "data/problems/maxstab/params"
 PREFIXES = [@sprintf("mssp8-n%03d-d%02d-v%03d-p%02d-m%02d", n, d, v, p, m) for n in [120, 140, 160], (d, v, p, m) in PARAMS]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)

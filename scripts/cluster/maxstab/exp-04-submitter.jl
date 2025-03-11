@@ -2,7 +2,7 @@ include("../common/submitter.jl")
 
 using Printf
 
-PROBLEM_DIR = "problems/maxstab/expset-4"
+PROBLEM_DIR = "data/problems/maxstab/expset-4"
 PREFIXES = ["mssp4-n$n-d$d" for n in 100:20:160, d in [10, 15, 20, 30]]
 PREFIXES_LONG = ["mssp4-n$n-d$d" for n in 180, d in [10, 15, 20, 30]]
 

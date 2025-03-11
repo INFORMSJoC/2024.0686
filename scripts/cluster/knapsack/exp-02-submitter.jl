@@ -2,7 +2,7 @@ include("../common/submitter.jl")
 
 using Printf
 
-PROBLEM_DIR = "problems/knapsack/expset-2"
+PROBLEM_DIR = "data/problems/knapsack/expset-2"
 PREFIXES = ["kpp2-n$n" for n in 30:2:50]
 
 PROBLEMS = joinpath.([PROBLEM_DIR], PREFIXES)
