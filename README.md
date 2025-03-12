@@ -1,16 +1,38 @@
 [![INFORMS Journal on Computing Logo](https://INFORMSJoC.github.io/logos/INFORMS_Journal_on_Computing_Header.jpg)](https://pubsonline.informs.org/journal/ijoc)
 
-# Solving Combinatorial Pricing Problems using Embedded Dynamic Programming Models <!-- omit from toc -->
+# Solving Combinatorial Pricing Problems using Embedded Dynamic Programming Models
 
 This archive is distributed in association with the [INFORMS Journal on
 Computing](https://pubsonline.informs.org/journal/ijoc) under the [MIT License](LICENSE).
 
 The software and data in this repository are a snapshot of the software and data
-that were used in the research reported on in the paper _Solving Combinatorial Pricing Problems using Embedded Dynamic Programming Models_ \[[1](#readme-ref1)\] by Q. M. Bui, M. Carvalho and J. Neto. 
+that were used in the research reported on in the paper [Solving Combinatorial Pricing Problems using Embedded Dynamic Programming Models](https://doi.org/10.1287/ijoc.2024.0686) by Q. M. Bui, M. Carvalho and J. Neto. 
 The snapshot is based on 
 [this repository](https://github.com/minhcly95/CombinatorialPricing.jl). 
 
-## Table of Contents <!-- omit from toc -->
+## Cite
+
+To cite the contents of this repository, please cite both the paper and this repo, using their respective DOIs.
+
+https://doi.org/10.1287/ijoc.2024.0686
+
+https://doi.org/10.1287/ijoc.2024.0686.cd
+
+Below is the BibTex for citing this snapshot of the repository.
+
+```
+@misc{BuiCode2025,
+  author =        {Q. M. Bui, M. Carvalho, J. Neto},
+  publisher =     {INFORMS Journal on Computing},
+  title =         {{Solving combinatorial pricing problems using embedded dynamic programming models}},
+  year =          {2025},
+  doi =           {10.1287/ijoc.2024.0686.cd},
+  url =           {https://github.com/INFORMSJoC/2024.0686},
+  note =          {Available for download at https://github.com/INFORMSJoC/2024.0686},
+}  
+```
+
+## Table of Contents
 
 - [Cite](#cite)
 - [Installation](#installation)
@@ -25,28 +47,6 @@ The snapshot is based on
 - [Results](#results)
 - [Replicating](#replicating)
 - [References](#references)
-
-## Cite
-
-To cite the contents of this repository, please cite both the paper and this repo, using their respective DOIs.
-
-https://doi.org/?????
-
-https://doi.org/?????.cd
-
-Below is the BibTex for citing this snapshot of the repository.
-
-```
-@misc{CacheTest,
-  author =        {Q. M. Bui, M. Carvalho, J. Neto},
-  publisher =     {INFORMS Journal on Computing},
-  title =         {{Solving combinatorial pricing problems using embedded dynamic programming models}},
-  year =          {2025},
-  doi =           {???},
-  url =           {https://github.com/INFORMSJoC/2024.0686},
-  note =          {Available for download at https://github.com/INFORMSJoC/2024.0686},
-}  
-```
 
 ## Installation
 
@@ -83,12 +83,15 @@ xvals = value.(model_vf[:x])        # The follower's decision x
 ```
 
 ## Other Models
-Paper \[[1](#readme-ref1)\] introduces 3 models to solve CPPs:
+
+We introduce three models to solve CPPs:
+
 - Value function model (VF);
 - Selection diagram model (SD);
 - Decision diagram model (DD).
 
 ### Value Function Model
+
 ```julia
 # Create a value function model
 model_vf = value_function_model(prob)
@@ -100,6 +103,7 @@ add_value_function_constraint!(model_vf, sample)
 ```
 
 ### Selection Diagram Model
+
 To create an SD model, we need to provide a selection diagram.
 A selection diagram can be created from a list of pairs of items.
 To obtain such list, we sample some solutions and extract a random pair from each solution.
@@ -121,6 +125,7 @@ model_sd = sdgraph_model(sd)
 ```
 
 ### Decision Diagram Model
+
 To create a DD model, we need to provide a decision diagram.
 The decision diagram needs to be populated with some nodes first,
 which requires some solution samples.
@@ -146,7 +151,9 @@ model_dd = dpgraph_model(dd)
 ```
 
 ## Supported Problems
-Paper \[[1](#readme-ref1)\] implements 4 different CPP specializations:
+
+We implement four different CPP specializations:
+
 - Knapsack pricing problem (KPP);
 - Maximum stable set pricing problem (MaxSSPP);
 - Minimum set cover pricing problem (MinSCPP);
@@ -173,7 +180,8 @@ sampler = MaximalKnapsackInterdictionSampler(prob)
 ```
 
 ### Problem Instance Sets
-The problem instances tested in \[[1](#readme-ref1)\] are located at:
+
+The problem instances are located at:
 - KPP: [data/problems/knapsack/expset-4](data/problems/knapsack/expset-4)
 - MaxSSPP: [data/problems/maxstab/expset-7](data/problems/maxstab/expset-7)
 - MinSCPP: [data/problems/mincover/expset-4](data/problems/mincover/expset-4)
@@ -183,6 +191,7 @@ The instance files for the KPP, MaxSSPP, and MinSCPP are in JSON format and are 
 The KIP instances are copied from https://github.com/nwoeanhinnogaehr/bkpsolver.
 
 ### Generate New Instances
+
 One can also generate new instances for the KPP, MaxSSPP, and MinSCPP.
 
 > [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) is required to adjust the distributions (`DiscreteUniform`, `Uniform`).
@@ -233,7 +242,7 @@ prob = generate(MinSetCoverPricing, numsets;
 
 ## Results
 
-All results in \[[1](#readme-ref1)\] are located at
+All results are located at
 - KPP, MaxSSPP, MinSCPP (Sections 4.1 to 4.3):  [results/data](results/data)
 - KIP (Section 4.4): [results/data/interdiction](results/data/interdiction)
 - Item Grouping (Appendix B): [results/data/grouping](results/data/grouping)
@@ -272,8 +281,4 @@ include("scripts/cluster/grouping/kpp-submitter.jl")
 
 This script prepares the problems and submits them to the cluster, which involves invoking the `kpp-cluster.jl` file in the same folder. The remaining files follow the same logic.
 
-
 **Remark:** Our experiments were run on the Narval computing cluster provided by the Digital Research Alliance of Canada.
-
-## References
-<a id="readme-ref1"></a> \[1\] Quang Minh Bui, Margarida Carvalho, José Neto. Solving Combinatorial Pricing Problems using Embedded Dynamic Programming Models. INFORMS Journal on Computing, accepted paper, 2025. ([arXiv version](https://arxiv.org/abs/2403.12923))
