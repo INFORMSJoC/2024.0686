@@ -188,7 +188,12 @@ The problem instances are located at:
 - KIP: [data/problems/interdiction-flatten](data/problems/interdiction-flatten)
 
 The instance files for the KPP, MaxSSPP, and MinSCPP are in JSON format and are self-explanatory.
-The KIP instances are copied from https://github.com/nwoeanhinnogaehr/bkpsolver.
+
+#### License for KIP Instances
+
+The KIP instances in the `data/problems/interdiction` and `data/problems/interdiction-flatten` folders are copied from 
+[bkpsolver](https://github.com/nwoeanhinnogaehr/bkpsolver). These files are subject to the original 
+license found in `data/problems/interdiction/LICENSE` and `data/problems/interdiction-flatten/LICENSE`.
 
 ### Generate New Instances
 
