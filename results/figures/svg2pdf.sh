@@ -1,0 +1,9 @@
+inkscape --export-type=pdf knapsack-time.svg
+inkscape --export-type=pdf knapsack-gap.svg
+inkscape --export-type=pdf maxstab-time.svg
+inkscape --export-type=pdf mincover-time.svg
+inkscape --export-type=pdf interdiction-time.svg
+inkscape --export-type=pdf interdiction-gap.svg
+inkscape --export-type=pdf knapsack-params.svg
+inkscape --export-type=pdf maxstab-params.svg
+inkscape --export-type=pdf mincover-params.svg
